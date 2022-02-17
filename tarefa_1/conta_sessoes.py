@@ -17,6 +17,8 @@ def add_sessions(cls, packet, sessions_dict):
 	tuple_1 = (ip_src, sport, ip_dst, dport)
 	tuple_2 = (ip_dst, dport, ip_src, sport)
 
+	payload = hexdump(packet[cls].payload, dump=True)
+	
 	if tuple_1 in sessions_dict:
 		if ( payload != None ):
 			sessions_dict[f"{tuple_1}"].append(payload)
@@ -26,7 +28,6 @@ def add_sessions(cls, packet, sessions_dict):
 			sessions_dict[f"{tuple_2}"].append(payload)
 	
 	else:
-		payload = hexdump(packet[cls].payload, dump=True)
 		sessions_dict[f"{tuple_1}"] = []
 
 		if ( payload != None ):
